@@ -42,7 +42,7 @@ export default function Header() {
         ) : (
           <>
             <span className="text-sm text-gray-700">{user.email}</span>
-            <Link to="/">
+            <Link to="/dashboard">
               <Button size="sm" variant="secondary">
                 Dashboard
               </Button>

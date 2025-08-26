@@ -35,7 +35,6 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      {JSON.stringify(user)}
       <h1 className="text-2xl font-bold mb-4">Welcome, {user.email}</h1>
       <Button onClick={handleLogout}>Logout</Button>
     </div>
