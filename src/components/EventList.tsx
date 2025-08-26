@@ -165,6 +165,16 @@ export default function EventList() {
     navigate({ to: `/event/${neo.id}` })
   }
 
+  const handleCompare = () => {
+    if (selectedNeos.length < 2) {
+      toast.error('Please select at least 2 asteroids to compare')
+      return
+    }
+    localStorage.setItem('selectedNeos', JSON.stringify(selectedNeos))
+    toast.success(`Preparing comparison for ${selectedNeos.length} asteroids...`)
+    navigate({ to: '/compare' as string})
+  }
+
   const getDateLabel = (dateStr: string) => {
     const today = new Date()
     const tomorrow = new Date(today)
@@ -398,6 +408,13 @@ export default function EventList() {
                       </SelectContent>
                     </Select>
                   </div>
+                  <Button
+                  onClick={handleCompare}
+                  disabled={selectedNeos.length < 2}
+                  className="flex items-center gap-2"
+                >
+                  Compare ({selectedNeos.length})
+                </Button>
                 </div>
               </div>
             </div>

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventIdRouteImport } from './routes/event.$id'
@@ -23,6 +24,11 @@ const RegisterRoute = RegisterRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareRoute = CompareRouteImport.update({
@@ -44,6 +50,7 @@ const EventIdRoute = EventIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/event/$id': typeof EventIdRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/event/$id': typeof EventIdRoute
@@ -59,21 +67,36 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/event/$id': typeof EventIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/compare' | '/login' | '/register' | '/event/$id'
+  fullPaths:
+    | '/'
+    | '/compare'
+    | '/dashboard'
+    | '/login'
+    | '/register'
+    | '/event/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/compare' | '/login' | '/register' | '/event/$id'
-  id: '__root__' | '/' | '/compare' | '/login' | '/register' | '/event/$id'
+  to: '/' | '/compare' | '/dashboard' | '/login' | '/register' | '/event/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/compare'
+    | '/dashboard'
+    | '/login'
+    | '/register'
+    | '/event/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompareRoute: typeof CompareRoute
+  DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   EventIdRoute: typeof EventIdRoute
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare': {
@@ -122,6 +152,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompareRoute: CompareRoute,
+  DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   EventIdRoute: EventIdRoute,
