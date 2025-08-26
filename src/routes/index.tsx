@@ -6,15 +6,19 @@ import { useUserStore } from '@/store/UserStore'
 import EventList from '@/components/EventList'
 import InitalPqge from '@/components/InitalPqge'
 
+
 const IndexPage = () => {
   useInitAuth()
 
   const { user } = useUserStore((state) => state)
 
   return (
+  <>
    <p>
     {user ? <EventList /> : <InitalPqge />}
    </p>
+ 
+   </>
   )
 }
 

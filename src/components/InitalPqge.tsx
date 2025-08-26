@@ -50,10 +50,6 @@ const {user} = useUserStore((state) => state)
           )}
         </div>
 
-        <div className="text-sm opacity-60">
-          <p>Developed by @Gopal N D</p>
-          <p className="mt-1">Powered by NASA Open APIs and Supabase</p>
-        </div>
       </div>
     </div>
   )
