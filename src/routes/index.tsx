@@ -1,39 +1,48 @@
+import { Button } from '@/components/ui/button'
+import { supabase } from '@/superbase-client'
 import { createFileRoute } from '@tanstack/react-router'
-import logo from '../logo.svg'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
-export const Route = createFileRoute('/')({
-  component: App,
-})
+const DashboardPage: React.FC = () => {
+  const [user, setUser] = useState<any>(null)
 
-function App() {
+  useEffect(() => {
+    const session = supabase.auth
+      .getSession()
+      .then(({ data }) => setUser(data.session?.user))
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user || null)
+      },
+    )
+    console.log(user)
+    return () => listener.subscription.unsubscribe()
+  }, [])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    toast('Signed out successfully!')
+    setUser(null)
+  }
+
+  if (!user)
+    return (
+      <p className="text-center mt-20">
+        You are not logged in. Go to Sign In or Sign Up.
+      </p>
+    )
+
   return (
-    <div className="text-center">
-      <header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
-        <img
-          src={logo}
-          className="h-[40vmin] pointer-events-none animate-[spin_20s_linear_infinite]"
-          alt="logo"
-        />
-        <p>
-          Edit <code>src/routes/index.tsx</code> and save to reload.
-        </p>
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://tanstack.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn TanStack
-        </a>
-      </header>
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      {JSON.stringify(user)}
+      <h1 className="text-2xl font-bold mb-4">Welcome, {user.email}</h1>
+      <Button onClick={handleLogout}>Logout</Button>
     </div>
   )
 }
+
+export default DashboardPage
+export const Route = createFileRoute('/' as any)({
+  component: DashboardPage,
+})
