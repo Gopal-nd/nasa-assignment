@@ -1,310 +1,194 @@
-Welcome to your new TanStack app! 
+# Cosmic Event Tracker 🌌
+
+A beautiful and feature-rich web application for monitoring Near-Earth Objects (NEOs) and cosmic events using NASA's Open APIs. Built with React, TypeScript, and modern web technologies.
+
+## ✨ Features
+
+- **Real-time NEO Monitoring**: Track Near-Earth Objects using NASA's comprehensive database
+- **Advanced Filtering & Sorting**: Filter by hazardous status, sort by various criteria
+- **Asteroid Comparison**: Select and compare multiple asteroids side-by-side
+- **Beautiful UI/UX**: Modern, responsive design using ShadCN components
+- **User Authentication**: Secure login/signup with Supabase
+- **Interactive Charts**: Visual comparison of asteroid parameters
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+
+## 🚀 Tech Stack
+
+- **Frontend**: React 19 + TypeScript
+- **Routing**: TanStack Router
+- **Styling**: Tailwind CSS + ShadCN UI
+- **Authentication**: Supabase Auth
+- **State Management**: React Hooks + Zustand
+- **HTTP Client**: Axios
+- **Notifications**: React Hot Toast
+- **Icons**: Lucide React
+- **Build Tool**: Vite
+
+## 📋 Prerequisites
+
+- Node.js 18+ 
+- pnpm (recommended) or npm
+- NASA API key (free from [api.nasa.gov](https://api.nasa.gov/))
+- Supabase account (free tier available)
+
+## 🛠️ Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd cosmic-event-tracker
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   # or
+   npm install
+   ```
+
+3. **Environment Setup**
+   Create a `.env` file in the root directory:
+   ```env
+   # NASA API Configuration
+   VITE_NASA_API_KEY=your_nasa_api_key_here
+   
+   # Supabase Configuration (if not already configured)
+   VITE_SUPABASE_URL=your_supabase_url_here
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+   ```
+
+4. **Get NASA API Key**
+   - Visit [https://api.nasa.gov/](https://api.nasa.gov/)
+   - Sign up for a free account
+   - Generate an API key
+   - Add it to your `.env` file
+
+5. **Configure Supabase** (if not already done)
+   - Create a new project at [supabase.com](https://supabase.com)
+   - Enable Email authentication
+   - Copy your project URL and anon key to `.env`
+
+## 🚀 Running the Application
+
+1. **Development Mode**
+   ```bash
+   pnpm dev
+   # or
+   npm run dev
+   ```
+
+2. **Build for Production**
+   ```bash
+   pnpm build
+   # or
+   npm run build
+   ```
+
+3. **Preview Production Build**
+   ```bash
+   pnpm serve
+   # or
+   npm run serve
+   ```
+
+## 🌟 Key Features Explained
+
+### Dashboard
+- **Real-time Data**: Fetches NEO data for the current week
+- **Smart Filtering**: Toggle to show only hazardous asteroids
+- **Advanced Sorting**: Sort by date, name, distance, velocity, or diameter
+- **Selection System**: Checkbox selection for comparison
+- **Load More**: Incrementally load more asteroid data
 
-# Getting Started
+### Comparison Tool
+- **Multi-asteroid Analysis**: Compare up to 10 selected asteroids
+- **Visual Rankings**: See asteroids ranked by distance, velocity, and diameter
+- **Detailed Metrics**: Comprehensive comparison tables
+- **Interactive Cards**: Click for detailed information
 
-To run this application:
+### Authentication
+- **Secure Login/Signup**: Email-based authentication
+- **Protected Routes**: Dashboard and comparison features require login
+- **Session Management**: Automatic session handling
 
-```bash
-pnpm install
-pnpm start
-```
+## 📱 Responsive Design
 
-# Building For Production
+The application is fully responsive and works on:
+- Desktop computers
+- Tablets
+- Mobile phones
+- All modern browsers
 
-To build this application for production:
+## 🔧 Customization
 
-```bash
-pnpm build
-```
+### Adding New Filters
+1. Add new filter state in the dashboard component
+2. Update the `filteredAndSortedNeos` function
+3. Add UI controls for the new filter
 
-## Testing
+### Adding New Sort Options
+1. Add new case in the switch statement
+2. Implement the sorting logic
+3. Add the option to the select dropdown
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+### Styling Changes
+- Modify Tailwind classes in components
+- Update ShadCN component variants
+- Customize the color scheme in `tailwind.config.js`
 
-```bash
-pnpm test
-```
+## 🚀 Deployment
 
-## Styling
+### Vercel (Recommended)
+1. Connect your GitHub repository
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+### Netlify
+1. Connect your repository
+2. Set build command: `npm run build`
+3. Set publish directory: `dist`
+4. Add environment variables
 
+### Manual Deployment
+1. Run `npm run build`
+2. Upload the `dist` folder to your hosting provider
+3. Ensure environment variables are set
 
-## Linting & Formatting
+## 📊 API Usage
 
+The application uses NASA's Near Earth Object Web Service (NeoWs):
+- **Endpoint**: `https://api.nasa.gov/neo/rest/v1/feed`
+- **Rate Limits**: 1000 requests per hour (free tier)
+- **Data**: Real-time NEO information including trajectories, velocities, and hazard assessments
 
-This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
+## 🤝 Contributing
 
-```bash
-pnpm lint
-pnpm format
-pnpm check
-```
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
+## 📄 License
 
-## Shadcn
+This project is open source and available under the [MIT License](LICENSE).
 
-Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
+## 🙏 Acknowledgments
 
-```bash
-pnpx shadcn@latest add button
-```
+- **NASA**: For providing the comprehensive NEO database
+- **Supabase**: For authentication and backend services
+- **ShadCN**: For the beautiful UI components
+- **TanStack**: For the excellent routing solution
 
+## 📞 Support
 
+If you encounter any issues or have questions:
+1. Check the [Issues](https://github.com/yourusername/cosmic-event-tracker/issues) page
+2. Create a new issue with detailed information
+3. Contact the development team
 
-## Routing
-This project uses [TanStack Router](https://tanstack.com/router). The initial setup is a file based router. Which means that the routes are managed as files in `src/routes`.
+---
 
-### Adding A Route
+**Developed with ❤️ by @GopalPatel**
 
-To add a new route to your application just add another a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you use the `<Outlet />` component.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-import { Link } from "@tanstack/react-router";
-
-export const Route = createRootRoute({
-  component: () => (
-    <>
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-        </nav>
-      </header>
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
-  ),
-})
-```
-
-The `<TanStackRouterDevtools />` component is not required so you can remove it if you don't want it in your layout.
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-const peopleRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/people",
-  loader: async () => {
-    const response = await fetch("https://swapi.dev/api/people");
-    return response.json() as Promise<{
-      results: {
-        name: string;
-      }[];
-    }>;
-  },
-  component: () => {
-    const data = peopleRoute.useLoaderData();
-    return (
-      <ul>
-        {data.results.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    );
-  },
-});
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-### React-Query
-
-React-Query is an excellent addition or alternative to route loading and integrating it into you application is a breeze.
-
-First add your dependencies:
-
-```bash
-pnpm add @tanstack/react-query @tanstack/react-query-devtools
-```
-
-Next we'll need to create a query client and provider. We recommend putting those in `main.tsx`.
-
-```tsx
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-// ...
-
-const queryClient = new QueryClient();
-
-// ...
-
-if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
-
-  root.render(
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  );
-}
-```
-
-You can also add TanStack Query Devtools to the root route (optional).
-
-```tsx
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const rootRoute = createRootRoute({
-  component: () => (
-    <>
-      <Outlet />
-      <ReactQueryDevtools buttonPosition="top-right" />
-      <TanStackRouterDevtools />
-    </>
-  ),
-});
-```
-
-Now you can use `useQuery` to fetch your data.
-
-```tsx
-import { useQuery } from "@tanstack/react-query";
-
-import "./App.css";
-
-function App() {
-  const { data } = useQuery({
-    queryKey: ["people"],
-    queryFn: () =>
-      fetch("https://swapi.dev/api/people")
-        .then((res) => res.json())
-        .then((data) => data.results as { name: string }[]),
-    initialData: [],
-  });
-
-  return (
-    <div>
-      <ul>
-        {data.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default App;
-```
-
-You can find out everything you need to know on how to use React-Query in the [React-Query documentation](https://tanstack.com/query/latest/docs/framework/react/overview).
-
-## State Management
-
-Another common requirement for React applications is state management. There are many options for state management in React. TanStack Store provides a great starting point for your project.
-
-First you need to add TanStack Store as a dependency:
-
-```bash
-pnpm add @tanstack/store
-```
-
-Now let's create a simple counter in the `src/App.tsx` file as a demonstration.
-
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store } from "@tanstack/store";
-import "./App.css";
-
-const countStore = new Store(0);
-
-function App() {
-  const count = useStore(countStore);
-  return (
-    <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>
-        Increment - {count}
-      </button>
-    </div>
-  );
-}
-
-export default App;
-```
-
-One of the many nice features of TanStack Store is the ability to derive state from other state. That derived state will update when the base state updates.
-
-Let's check this out by doubling the count using derived state.
-
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store, Derived } from "@tanstack/store";
-import "./App.css";
-
-const countStore = new Store(0);
-
-const doubledStore = new Derived({
-  fn: () => countStore.state * 2,
-  deps: [countStore],
-});
-doubledStore.mount();
-
-function App() {
-  const count = useStore(countStore);
-  const doubledCount = useStore(doubledStore);
-
-  return (
-    <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>
-        Increment - {count}
-      </button>
-      <div>Doubled - {doubledCount}</div>
-    </div>
-  );
-}
-
-export default App;
-```
-
-We use the `Derived` class to create a new store that is derived from another store. The `Derived` class has a `mount` method that will start the derived store updating.
-
-Once we've created the derived store we can use it in the `App` component just like we would any other store using the `useStore` hook.
-
-You can find out everything you need to know on how to use TanStack Store in the [TanStack Store documentation](https://tanstack.com/store/latest).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
+*Track the cosmos, stay informed, explore the universe!* 🚀✨
