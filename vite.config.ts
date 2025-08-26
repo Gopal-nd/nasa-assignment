@@ -12,10 +12,7 @@ export default defineConfig({
     viteReact(),
     tailwindcss(),
   ],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-  },
+  // test configuration has been moved to vitest.config.ts
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

@@ -3,7 +3,14 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ArrowLeft, BarChart3, TrendingUp, AlertTriangle, BarChart, PieChart, LineChart } from 'lucide-react'
+import {
+  ArrowLeft,
+  BarChart3,
+  TrendingUp,
+  AlertTriangle,
+  BarChart,
+  PieChart,
+} from 'lucide-react'
 import type { NeoObject } from '@/api/nasaApi'
 import toast from 'react-hot-toast'
 import { Spinner } from '@/components/ui/spinner'
@@ -24,7 +31,9 @@ export default function ComparePage() {
         navigate({ to: '/' })
       }
     } else {
-      toast.error('No asteroids selected for comparison. Please select some from the home page.')
+      toast.error(
+        'No asteroids selected for comparison. Please select some from the home page.',
+      )
       navigate({ to: '/' })
     }
   }, [navigate])
@@ -48,8 +57,9 @@ export default function ComparePage() {
   }
 
   const getAverageDiameter = (neo: NeoObject) => {
-    const { estimated_diameter_min, estimated_diameter_max } = neo.estimated_diameter.kilometers
-    return ((estimated_diameter_min + estimated_diameter_max) / 2)
+    const { estimated_diameter_min, estimated_diameter_max } =
+      neo.estimated_diameter.kilometers
+    return (estimated_diameter_min + estimated_diameter_max) / 2
   }
 
   const getClosestApproach = (neo: NeoObject) => {
@@ -57,7 +67,9 @@ export default function ComparePage() {
   }
 
   const getVelocity = (neo: NeoObject) => {
-    return parseFloat(neo.close_approach_data[0].relative_velocity.kilometers_per_hour)
+    return parseFloat(
+      neo.close_approach_data[0].relative_velocity.kilometers_per_hour,
+    )
   }
 
   const getDistance = (neo: NeoObject) => {
@@ -65,23 +77,30 @@ export default function ComparePage() {
   }
 
   // Sort by various criteria for comparison
-  const sortedByDistance = [...selectedNeos].sort((a, b) => getDistance(a) - getDistance(b))
-  const sortedByVelocity = [...selectedNeos].sort((a, b) => getVelocity(a) - getVelocity(b))
+  const sortedByDistance = [...selectedNeos].sort(
+    (a, b) => getDistance(a) - getDistance(b),
+  )
+  const sortedByVelocity = [...selectedNeos].sort(
+    (a, b) => getVelocity(a) - getVelocity(b),
+  )
 
-
-  
   const chartData = {
-    labels: selectedNeos.map(neo => neo.name.substring(0, 15) + '...'),
-    distances: selectedNeos.map(neo => getDistance(neo)),
-    velocities: selectedNeos.map(neo => getVelocity(neo)),
-    diameters: selectedNeos.map(neo => getAverageDiameter(neo))
+    labels: selectedNeos.map((neo) => neo.name.substring(0, 15) + '...'),
+    distances: selectedNeos.map((neo) => getDistance(neo)),
+    velocities: selectedNeos.map((neo) => getVelocity(neo)),
+    diameters: selectedNeos.map((neo) => getAverageDiameter(neo)),
   }
 
   const maxDistance = Math.max(...chartData.distances)
   const maxVelocity = Math.max(...chartData.velocities)
   const maxDiameter = Math.max(...chartData.diameters)
 
-  const renderBarChart = (data: number[], maxValue: number, label: string, color: string) => (
+  const renderBarChart = (
+    data: number[],
+    maxValue: number,
+    label: string,
+    color: string,
+  ) => (
     <div className="space-y-2">
       <h4 className="font-medium text-center">{label}</h4>
       <div className="flex items-end justify-center gap-2 h-32">
@@ -101,13 +120,20 @@ export default function ComparePage() {
     </div>
   )
 
-  const renderPieChart = (data: number[], labels: string[], colors: string[]) => {
+  const renderPieChart = (
+    data: number[],
+    labels: string[],
+    colors: string[],
+  ) => {
     const total = data.reduce((a, b) => a + b, 0)
-    if (total === 0) return <div className="text-center opacity-70">No data to display</div>
-    
+    if (total === 0)
+      return <div className="text-center opacity-70">No data to display</div>
+
     return (
       <div className="space-y-4">
-        <h4 className="font-medium text-center">Distribution by Hazard Status</h4>
+        <h4 className="font-medium text-center">
+          Distribution by Hazard Status
+        </h4>
         <div className="flex justify-center">
           <div className="relative w-32 h-32">
             <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 32 32">
@@ -115,9 +141,16 @@ export default function ComparePage() {
                 const percentage = (value / total) * 100
                 const circumference = 2 * Math.PI * 14
                 const strokeDasharray = (percentage / 100) * circumference
-                const strokeDashoffset = index === 0 ? 0 : 
-                  data.slice(0, index).reduce((acc, val) => acc + (val / total) * circumference, 0)
-                
+                const strokeDashoffset =
+                  index === 0
+                    ? 0
+                    : data
+                        .slice(0, index)
+                        .reduce(
+                          (acc, val) => acc + (val / total) * circumference,
+                          0,
+                        )
+
                 return (
                   <circle
                     key={index}
@@ -135,9 +168,7 @@ export default function ComparePage() {
               })}
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-medium">
-                {selectedNeos.length}
-              </span>
+              <span className="text-sm font-medium">{selectedNeos.length}</span>
             </div>
           </div>
         </div>
@@ -170,7 +201,9 @@ export default function ComparePage() {
             </Button>
             <div>
               <h1 className="text-3xl font-bold">Asteroid Comparison</h1>
-              <p className="opacity-70">Comparing {selectedNeos.length} selected asteroids</p>
+              <p className="opacity-70">
+                Comparing {selectedNeos.length} selected asteroids
+              </p>
             </div>
           </div>
           <Button onClick={clearSelection} variant="destructive">
@@ -202,7 +235,11 @@ export default function ComparePage() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">
-                {selectedNeos.filter(neo => neo.is_potentially_hazardous_asteroid).length}
+                {
+                  selectedNeos.filter(
+                    (neo) => neo.is_potentially_hazardous_asteroid,
+                  ).length
+                }
               </div>
               <p className="text-sm opacity-70">potentially dangerous</p>
             </CardContent>
@@ -217,7 +254,12 @@ export default function ComparePage() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">
-                {(selectedNeos.reduce((acc, neo) => acc + getAverageDiameter(neo), 0) / selectedNeos.length).toFixed(3)}
+                {(
+                  selectedNeos.reduce(
+                    (acc, neo) => acc + getAverageDiameter(neo),
+                    0,
+                  ) / selectedNeos.length
+                ).toFixed(3)}
               </div>
               <p className="text-sm opacity-70">kilometers</p>
             </CardContent>
@@ -232,7 +274,10 @@ export default function ComparePage() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">
-                {(Math.min(...selectedNeos.map(neo => getDistance(neo))) / 1000).toFixed(2)}
+                {(
+                  Math.min(...selectedNeos.map((neo) => getDistance(neo))) /
+                  1000
+                ).toFixed(2)}
               </div>
               <p className="text-sm opacity-70">thousand km</p>
             </CardContent>
@@ -254,7 +299,7 @@ export default function ComparePage() {
                 chartData.distances,
                 maxDistance,
                 'Miss Distance (km)',
-                'bg-blue-500'
+                'bg-blue-500',
               )}
             </CardContent>
           </Card>
@@ -272,7 +317,7 @@ export default function ComparePage() {
                 chartData.velocities,
                 maxVelocity,
                 'Relative Velocity (km/h)',
-                'bg-green-500'
+                'bg-green-500',
               )}
             </CardContent>
           </Card>
@@ -290,7 +335,7 @@ export default function ComparePage() {
                 chartData.diameters,
                 maxDiameter,
                 'Average Diameter (km)',
-                'bg-purple-500'
+                'bg-purple-500',
               )}
             </CardContent>
           </Card>
@@ -306,11 +351,15 @@ export default function ComparePage() {
             <CardContent>
               {renderPieChart(
                 [
-                  selectedNeos.filter(neo => !neo.is_potentially_hazardous_asteroid).length,
-                  selectedNeos.filter(neo => neo.is_potentially_hazardous_asteroid).length
+                  selectedNeos.filter(
+                    (neo) => !neo.is_potentially_hazardous_asteroid,
+                  ).length,
+                  selectedNeos.filter(
+                    (neo) => neo.is_potentially_hazardous_asteroid,
+                  ).length,
                 ],
                 ['Safe', 'Hazardous'],
-                ['bg-green-500', 'bg-red-500']
+                ['bg-green-500', 'bg-red-500'],
               )}
             </CardContent>
           </Card>
@@ -344,15 +393,27 @@ export default function ComparePage() {
                         <td className="p-2">
                           <div>
                             <div className="font-medium">{neo.name}</div>
-                            <div className="text-sm opacity-70">ID: {neo.id}</div>
+                            <div className="text-sm opacity-70">
+                              ID: {neo.id}
+                            </div>
                           </div>
                         </td>
                         <td className="p-2 font-mono">
-                          {parseFloat(getDistance(neo).toFixed(2)).toLocaleString()}
+                          {parseFloat(
+                            getDistance(neo).toFixed(2),
+                          ).toLocaleString()}
                         </td>
                         <td className="p-2">
-                          <Badge variant={neo.is_potentially_hazardous_asteroid ? "destructive" : "default"}>
-                            {neo.is_potentially_hazardous_asteroid ? "Hazardous" : "Safe"}
+                          <Badge
+                            variant={
+                              neo.is_potentially_hazardous_asteroid
+                                ? 'destructive'
+                                : 'default'
+                            }
+                          >
+                            {neo.is_potentially_hazardous_asteroid
+                              ? 'Hazardous'
+                              : 'Safe'}
                           </Badge>
                         </td>
                       </tr>
@@ -389,15 +450,27 @@ export default function ComparePage() {
                         <td className="p-2">
                           <div>
                             <div className="font-medium">{neo.name}</div>
-                            <div className="text-sm opacity-70">ID: {neo.id}</div>
+                            <div className="text-sm opacity-70">
+                              ID: {neo.id}
+                            </div>
                           </div>
                         </td>
                         <td className="p-2 font-mono">
-                          {parseFloat(getVelocity(neo).toFixed(2)).toLocaleString()}
+                          {parseFloat(
+                            getVelocity(neo).toFixed(2),
+                          ).toLocaleString()}
                         </td>
                         <td className="p-2">
-                          <Badge variant={neo.is_potentially_hazardous_asteroid ? "destructive" : "default"}>
-                            {neo.is_potentially_hazardous_asteroid ? "Hazardous" : "Safe"}
+                          <Badge
+                            variant={
+                              neo.is_potentially_hazardous_asteroid
+                                ? 'destructive'
+                                : 'default'
+                            }
+                          >
+                            {neo.is_potentially_hazardous_asteroid
+                              ? 'Hazardous'
+                              : 'Safe'}
                           </Badge>
                         </td>
                       </tr>
@@ -416,12 +489,23 @@ export default function ComparePage() {
             <CardContent>
               <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {selectedNeos.map((neo) => (
-                  <Card key={neo.id} className="hover:shadow-lg transition-shadow">
+                  <Card
+                    key={neo.id}
+                    className="hover:shadow-lg transition-shadow"
+                  >
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between">
                         <CardTitle className="text-lg">{neo.name}</CardTitle>
-                        <Badge variant={neo.is_potentially_hazardous_asteroid ? "destructive" : "default"}>
-                          {neo.is_potentially_hazardous_asteroid ? "Hazardous" : "Safe"}
+                        <Badge
+                          variant={
+                            neo.is_potentially_hazardous_asteroid
+                              ? 'destructive'
+                              : 'default'
+                          }
+                        >
+                          {neo.is_potentially_hazardous_asteroid
+                            ? 'Hazardous'
+                            : 'Safe'}
                         </Badge>
                       </div>
                     </CardHeader>
@@ -430,20 +514,28 @@ export default function ComparePage() {
                         <div>
                           <span className="font-medium">Diameter:</span>
                           <br />
-                          <span className="opacity-70">{getAverageDiameter(neo).toFixed(3)} km</span>
+                          <span className="opacity-70">
+                            {getAverageDiameter(neo).toFixed(3)} km
+                          </span>
                         </div>
                         <div>
                           <span className="font-medium">Distance:</span>
                           <br />
                           <span className="opacity-70">
-                            {parseFloat(getDistance(neo).toFixed(2)).toLocaleString()} km
+                            {parseFloat(
+                              getDistance(neo).toFixed(2),
+                            ).toLocaleString()}{' '}
+                            km
                           </span>
                         </div>
                         <div>
                           <span className="font-medium">Velocity:</span>
                           <br />
                           <span className="opacity-70">
-                            {parseFloat(getVelocity(neo).toFixed(2)).toLocaleString()} km/h
+                            {parseFloat(
+                              getVelocity(neo).toFixed(2),
+                            ).toLocaleString()}{' '}
+                            km/h
                           </span>
                         </div>
                         <div>

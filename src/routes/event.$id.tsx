@@ -3,7 +3,14 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ExternalLink, AlertTriangle, Globe, Zap, Calendar, Ruler, ArrowLeft, BarChart3 } from 'lucide-react'
+import {
+  ExternalLink,
+  AlertTriangle,
+  Globe,
+  Zap,
+  Calendar,
+  Ruler,
+} from 'lucide-react'
 import type { NeoObject } from '@/api/nasaApi'
 import { Spinner } from '@/components/ui/spinner'
 import toast from 'react-hot-toast'
@@ -70,7 +77,9 @@ export default function EventDetailPage() {
             <CardTitle>Asteroid Not Found</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4 opacity-70">The requested asteroid could not be found.</p>
+            <p className="mb-4 opacity-70">
+              The requested asteroid could not be found.
+            </p>
             <Button onClick={() => navigate({ to: '/' })} className="w-full">
               Return to Home
             </Button>
@@ -81,12 +90,14 @@ export default function EventDetailPage() {
   }
 
   const getAverageDiameter = (neo: NeoObject) => {
-    const { estimated_diameter_min, estimated_diameter_max } = neo.estimated_diameter.kilometers
+    const { estimated_diameter_min, estimated_diameter_max } =
+      neo.estimated_diameter.kilometers
     return ((estimated_diameter_min + estimated_diameter_max) / 2).toFixed(3)
   }
 
   const getDiameterRange = (neo: NeoObject) => {
-    const { estimated_diameter_min, estimated_diameter_max } = neo.estimated_diameter.kilometers
+    const { estimated_diameter_min, estimated_diameter_max } =
+      neo.estimated_diameter.kilometers
     return `${estimated_diameter_min.toFixed(3)} - ${estimated_diameter_max.toFixed(3)} km`
   }
 
@@ -106,7 +117,7 @@ export default function EventDetailPage() {
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     })
   }
 
@@ -123,9 +134,11 @@ export default function EventDetailPage() {
               <p className="opacity-70">Asteroid ID: {asteroid.id}</p>
             </div>
           </div>
-          <Badge className={`${asteroid.is_potentially_hazardous_asteroid ? "bg-red-500" : "bg-green-500"}`}>
-                        {asteroid.is_potentially_hazardous_asteroid ? "Hazardous" : "Safe"}
-                      </Badge>
+          <Badge
+            className={`${asteroid.is_potentially_hazardous_asteroid ? 'bg-red-500' : 'bg-green-500'}`}
+          >
+            {asteroid.is_potentially_hazardous_asteroid ? 'Hazardous' : 'Safe'}
+          </Badge>
         </div>
 
         <div className="space-y-6">
@@ -162,9 +175,13 @@ export default function EventDetailPage() {
                 <div>
                   <span className="font-medium">Hazard Status:</span>
                   <div className="flex items-center gap-2 mt-1">
-                      <Badge className={`${asteroid.is_potentially_hazardous_asteroid ? "bg-red-500" : "bg-green-500"}`}>
-                        {asteroid.is_potentially_hazardous_asteroid ? "Hazardous" : "Safe"}
-                      </Badge>
+                    <Badge
+                      className={`${asteroid.is_potentially_hazardous_asteroid ? 'bg-red-500' : 'bg-green-500'}`}
+                    >
+                      {asteroid.is_potentially_hazardous_asteroid
+                        ? 'Hazardous'
+                        : 'Safe'}
+                    </Badge>
                     {asteroid.is_potentially_hazardous_asteroid && (
                       <AlertTriangle className="h-4 w-4 text-red-500" />
                     )}
@@ -190,15 +207,27 @@ export default function EventDetailPage() {
                 </div>
                 <div>
                   <span className="font-medium">Average Diameter:</span>
-                  <p className="opacity-70">{getAverageDiameter(asteroid)} km</p>
+                  <p className="opacity-70">
+                    {getAverageDiameter(asteroid)} km
+                  </p>
                 </div>
                 <div>
                   <span className="font-medium">Diameter Min:</span>
-                  <p className="opacity-70">{asteroid.estimated_diameter.kilometers.estimated_diameter_min.toFixed(3)} km</p>
+                  <p className="opacity-70">
+                    {asteroid.estimated_diameter.kilometers.estimated_diameter_min.toFixed(
+                      3,
+                    )}{' '}
+                    km
+                  </p>
                 </div>
                 <div>
                   <span className="font-medium">Diameter Max:</span>
-                  <p className="opacity-70">{asteroid.estimated_diameter.kilometers.estimated_diameter_max.toFixed(3)} km</p>
+                  <p className="opacity-70">
+                    {asteroid.estimated_diameter.kilometers.estimated_diameter_max.toFixed(
+                      3,
+                    )}{' '}
+                    km
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -217,17 +246,24 @@ export default function EventDetailPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <span className="font-medium">Approach Date:</span>
-                    <p className="opacity-70">{formatDate(closeApproach.close_approach_date_full)}</p>
+                    <p className="opacity-70">
+                      {formatDate(closeApproach.close_approach_date_full)}
+                    </p>
                   </div>
                   <div>
                     <span className="font-medium">Relative Velocity:</span>
-                    <p className="opacity-70">{formatVelocity(closeApproach.relative_velocity.kilometers_per_hour)}</p>
+                    <p className="opacity-70">
+                      {formatVelocity(
+                        closeApproach.relative_velocity.kilometers_per_hour,
+                      )}
+                    </p>
                   </div>
                   <div>
                     <span className="font-medium">Miss Distance:</span>
-                    <p className="opacity-70">{formatDistance(closeApproach.miss_distance.kilometers)}</p>
+                    <p className="opacity-70">
+                      {formatDistance(closeApproach.miss_distance.kilometers)}
+                    </p>
                   </div>
-                 
                 </div>
               </div>
             </CardContent>
@@ -244,28 +280,46 @@ export default function EventDetailPage() {
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <span className="font-medium">Close Approach Data Count:</span>
-                  <p className="opacity-70">{asteroid.close_approach_data.length} approach(es) recorded</p>
+                  <span className="font-medium">
+                    Close Approach Data Count:
+                  </span>
+                  <p className="opacity-70">
+                    {asteroid.close_approach_data.length} approach(es) recorded
+                  </p>
                 </div>
-                
+
                 {asteroid.close_approach_data.length > 1 && (
                   <div>
                     <span className="font-medium">All Close Approaches:</span>
                     <div className="mt-2 space-y-2">
                       {asteroid.close_approach_data.map((approach, index) => (
-                        <div key={index} className="p-3 border rounded-lg bg-muted/30">
+                        <div
+                          key={index}
+                          className="p-3 border rounded-lg bg-muted/30"
+                        >
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
                             <div>
                               <span className="font-medium">Date:</span>
-                              <p className="opacity-70">{approach.close_approach_date}</p>
+                              <p className="opacity-70">
+                                {approach.close_approach_date}
+                              </p>
                             </div>
                             <div>
                               <span className="font-medium">Velocity:</span>
-                              <p className="opacity-70">{formatVelocity(approach.relative_velocity.kilometers_per_hour)}</p>
+                              <p className="opacity-70">
+                                {formatVelocity(
+                                  approach.relative_velocity
+                                    .kilometers_per_hour,
+                                )}
+                              </p>
                             </div>
                             <div>
                               <span className="font-medium">Distance:</span>
-                              <p className="opacity-70">{formatDistance(approach.miss_distance.kilometers)}</p>
+                              <p className="opacity-70">
+                                {formatDistance(
+                                  approach.miss_distance.kilometers,
+                                )}
+                              </p>
                             </div>
                           </div>
                         </div>
